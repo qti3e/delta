@@ -1,0 +1,30 @@
+
+<a href="#!/advanced" class='btn btn-danger' style='margin-top:-80px;margin-left:50px'>Advanced</a>
+<div class="container">
+    <div>
+        <div class="row" ng-hide="answer !== ''">
+            <p>
+Please enter your sequence
+            </p>
+            <div class="col-md-1 visible-md visible-lg">
+                <button style="width: 100% !important;text-align: center;" ng-click="submit()" class="center-block btn btn-success">Find!</button>
+            </div>
+            <div class="col-sm-2 col-md-2 col-sm-12 col-sm-push-0" ng-repeat="(key,number) in count track by key">
+                <input style="width: 100% !important;" dir="ltr" class="form-control text-center" type="text" ng-keyup="$event.keyCode == 13 ? submit() : null" placeholder="Num" ng-value="number" ng-focus="count.length - 1 == key && addNumber(key)" ng-model="count[key]">
+            </div>
+            <div class="col-sm-12 col-md-2 hidden-md hidden-lg visible-sm visible-xs">
+                <button style="width: 100% !important;" ng-click="submit()" class="center-block btn btn-success">Find!</button>
+            </div>
+        </div>
+        <div class="row" dir="ltr" ng-if="answer !== ''">
+            <div class="col-md-10">
+				<!--<div class="well"><b ng-repeat=""></b>$$ {{count}} $$</div>-->
+                <div class="well">$$ {{answer}} $$</div>
+                <div class="well" ng-if="answer2 !== ''">$$ {{answer2}} $$</div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" style="width: 100% !important;" ng-click="remove()">Remove!</button>
+            </div>
+        </div>
+    </div>
+</div>

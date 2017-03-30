@@ -1,0 +1,144 @@
+
+<a href="#!/index" class='btn btn-danger' style='margin-top:-80px;margin-left:50px'>Basic</a>
+<div class="container">
+    <div>
+	<div class="row" dir="ltr" ng-if='step == "structure"'>
+		<p>Write your structure</p>
+		<div class="col-md-6 col-sm-6 well" dir="ltr">
+			<div class='bg-success block'>Commons</div>
+			<div class='icon' ng-click="replace('\\sqrt{?}')">
+				$$ \sqrt{x} $$
+			</div>
+			<div class='icon' ng-click="replace('\\sqrt[?]{?}')">
+				$$ \sqrt[y]{x} $$
+			</div>
+			<div class='icon' style="margin-top:5px" ng-click="replace('\\frac{?}{?}')">
+				$$ \frac{a}{b} $$
+			</div>
+			<div class="icon" ng-click="replace('|?|')">
+				$$ |x| $$
+			</div>
+			<div class="icon" ng-click="replace('{?}^{?}')">
+				$$ x^y $$
+			</div>
+			<div class="icon" ng-click="replace('i^{?}')">
+				$$ i^{x} $$
+			</div>
+			<div class="icon" ng-click="replace('{?}^2')">
+				$$ {x}^2 $$
+			</div>
+			<div class="icon" ng-click="replace('{?}!')">
+				$$ {n}! $$
+			</div>
+			<div class="icon" ng-click="replace('10^{?}')">
+				$$ 10^{x} $$
+			</div>
+			<div class="icon" ng-click="replace('ln({?})')">
+				$$ ln({x}) $$
+			</div>
+			<div class="icon" ng-click="replace('log({?})')">
+				$$ log(x) $$
+			</div>
+
+			<div class="bg-success block">Functions</div>			
+
+			<div class="icon" ng-click="replace('\\cos(?)')">
+				$$ \cos(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\sin(?)')">
+				$$ \sin(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\tan(?)')">
+				$$ \tan(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\cot(?)')">
+				$$ \cot(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\cosh(?)')">
+				$$ \cosh(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\sinh(?)')">
+				$$ \sinh(x) $$
+			</div>
+			<div class="icon" ng-click="replace('\\tanh(?)')">
+				$$ \tanh(x) $$
+			</div>
+			<div class="icon" ng-click="replcae('\\coth(?)')">
+				$$ \coth(x) $$
+			</div>
+
+			<div class="bg-success block">Operations</div>
+
+			<div class="icon" ng-click="replace('+')">
+				$$ + $$
+			</div>
+			<div class="icon" ng-click="replace('-')">
+				$$ - $$
+			</div>
+			<div class="icon" ng-click="replace('\\times')">
+				$$ \times $$
+			</div>
+			<div class="icon" ng-click="replace('\\div')">
+				$$ \div $$
+			</div>
+			<div class="icon" ng-click="replace('?')">
+				$$ x $$
+			</div>
+			<div class="icon" ng-click="replace('(?)')">
+				$$ (x) $$
+			</div>
+			<div class="icon text-center" ng-click="replace('')">
+				<i class="fa fa-trash fa-2x"></i>
+			</div>
+		</div>
+		<!-- Preview -->
+		<div class="col-md-6 col-sm-6" dir="ltr" style="height:325px">
+			<div class="row preview_panel">
+				$$ {{preview}} $$
+			</div>
+			<div class="row" dir="ltr" style="bottom:0px;position:absolute;right:0px;left:15px;">
+				<input style="width: 100%;text-align:left;" id="textpreview" class="form-control" ng-model="preview" ng-change="refresh()" readonly="readonly">
+				<button class="btn btn-success" style="width:100%" ng-click="use()"><i class="fa fa-plus"></i> Use</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" ng-if='step == "inputs"'>
+		<div class="row">
+			<div class="col-md-3 col-sm-3" dir="ltr">
+				<div class='well well-sm' ng-repeat='(key, value) in input track by key'>
+					<b>{{indexChar(key)}}</b>=<input class="form-control" style='display:inline;width:90%' type="text" ng-model="input[key]" ng-change="getTex()"> 
+				</div>
+				<button class='btn btn-primary' style="width: 100%" ng-click="add()"><i class="fa fa-plus"></i> Add</button>
+				<button class='btn btn-warning' style="width: 100%" ng-if='inputs.length > 0' ng-click="find()">Find!</button>
+			</div>
+			<div class="col-md-9 col-sm-9 preview_panel">
+				$$ {{tex}} $$
+			</div>
+		</div>
+		<div class="row">
+			<div style="margin-left:5px;" class='well col-md-1 col-sm-3' ng-repeat="(key, value) in teXs track by key">
+			$$ {{value}} $$
+			</div>
+		</div>
+	</div>
+	
+	<div class='row text-center well well-lg' ng-if="step == 'loading'">
+		<i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i>
+	</div>	
+
+        <div class="row" dir="ltr" ng-if="answer !== ''">
+            <div class="col-md-10">
+		<div class='row'>
+			<div style="margin-left:5px;" class='well col-md-1 col-sm-3' ng-repeat="(key, value) in teXs track by key">
+			$$ {{value}} $$
+			</div>
+		</div>
+                <div class="well">$$ {{answer}} $$</div>
+            </div>
+            <div class="col-md-2"> 
+                <button class="btn btn-primary" style="width: 100% !important;" ng-click="remove()">Remove!</button>
+            </div>
+        </div>
+    </div>
+</div>

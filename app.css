@@ -1,0 +1,76 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+body,html{
+  height: 100%;
+}
+body{
+  /*background: no-repeat url(images/blurred-background-4.jpg);*/
+  background-size: cover;
+}
+.icon{
+	display: inline-block;
+	display: -moz-deck;
+	width: 60px;
+	height: 69px;
+	cursor: pointer;
+}
+.icon:hover{
+	background-color: #212020;
+}
+.preview_panel > div ~ div{
+	display: none !important;
+}
+.preview_panel{
+	color: transparent;
+}
+.preview_panel > div{
+	color: #fff;
+}
+input.ng-dirty.ng-invalid{
+	color: red;
+}
+/*body{*/
+  /*display: table;*/
+  /*width: 100%;*/
+/*}*/
+/*.app-view{*/
+  /*display:table-cell;*/
+  /*vertical-align: middle;*/
+/*}*/
+/*.full-width{*/
+  /*width: 100%;*/
+/*}*/
+/*.full-height{*/
+  /*height: 100%;*/
+/*}*/
+/*.outer{*/
+  /*display: table;*/
+  /*width: 100%;*/
+/*}*/
+/*.inner{*/
+  /*display:table-cell;*/
+  /*vertical-align: middle;*/
+/*}*/
