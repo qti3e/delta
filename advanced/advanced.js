@@ -9,11 +9,13 @@ angular.module('myApp.advanced', ['ngRoute'])
         });
     }])
 
-    .controller('AdvancedCtrl', function($scope) {
+    .controller('AdvancedCtrl', function($scope, $timeout) {
         $scope.count = [];
 	$scope.structure	= '';
 	$scope.num		= 0;
-	$scope.step		= 'structure'
+	    $timeout(function () {
+		    $scope.step		= 'structure'
+	    });
 	$scope.demo		= '';
 	$scope.use = function(){
 		$scope.structure	= $scope.preview;
@@ -24,7 +26,9 @@ angular.module('myApp.advanced', ['ngRoute'])
 			$scope.demo = $scope.demo.replace('?', '<'+String.fromCharCode(i + 65)+'>')
 		}
 		if($scope.structure != ''){
-			$scope.step		= 'inputs'
+			$timeout(function () {
+				$scope.step		= 'inputs'
+			})
 			for(var i = 0; i < $scope.num;i++){$scope.input.push(String.fromCharCode(65 + i))}
 			$scope.getTex();
 		}
@@ -35,12 +39,12 @@ angular.module('myApp.advanced', ['ngRoute'])
 	$scope.tex	= '';
 	$scope.teXs	= [];
 	$scope.add	= function(){
-		$scope.inputs.push($scope.input)
+		$scope.inputs.push($scope.input);
 		$scope.teXs.push($scope.tex);
 		$scope.input = [];
 		for(var i = 0; i < $scope.num;i++){$scope.input.push(String.fromCharCode(65 + i))}
 		$scope.getTex();
-	}
+	};
 	$scope.getTex	= function(){
 		var tex = $scope.structure,
 			i;
@@ -65,7 +69,9 @@ angular.module('myApp.advanced', ['ngRoute'])
 
         $scope.answer   = '';
 	$scope.find	= function(){
-		$scope.step = 'loading';
+		$timeout(function () {
+			$scope.step = 'loading';
+		});
 		console.log($scope.inputs)
 		var sequnces 	= [],
 			ret	= [],
@@ -83,9 +89,11 @@ angular.module('myApp.advanced', ['ngRoute'])
 			answer = answer.replace('?', '('+ret[i]+')')
 		}
 		$scope.answer = answer;
-		$scope.step = 'answer';
+		$timeout(function () {
+			$scope.step = 'answer';
+		}, 750);
 		$scope.refresh();
-	}	
+	};
 
         $scope.refresh = function () {
 	    jQuery('#preview_panel > .MJXc-display, #preview_panel > .MathJax_Preview, #preview_panel > .MathJax_MathML').remove()
@@ -98,7 +106,9 @@ angular.module('myApp.advanced', ['ngRoute'])
         $scope.count = [];
 	$scope.structure	= '';
 	$scope.num		= 0;
-	$scope.step		= 'structure'
+	        $timeout(function () {
+		        $scope.step		= 'structure';
+	        })
 	$scope.demo		= '';
 	$scope.inputs	= [];
 	$scope.input	= [];

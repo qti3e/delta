@@ -29,36 +29,58 @@ angular.module('myApp.index', ['ngRoute'])
         };
         $scope.answer   = '';
         $scope.answer2  = '';
+        function decimalPlaces(num) {
+            var match = (''+num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+            if (!match) { return 0; }
+            return Math.max(
+                0,
+                // Number of digits right of decimal point.
+                (match[1] ? match[1].length : 0)
+                // Adjust for scientific notation.
+                - (match[2] ? +match[2] : 0));
+        }
+        function print(max_dec, delta) {
+            if(max_dec == 0)
+                return delta.printLatex();
+            if(max_dec == 1)
+                return $scope.answer = '\\frac{'+delta.printLatex()+'}{10}';
+            return $scope.answer = '\\frac{'+delta.printLatex()+'}{10^'+max_dec+'}';
+        }
         $scope.submit = function(){
             var numbers = [],
-                v,i;
+                v,i,max_dec = 0,h;
             for(i = 0;i < $scope.count.length;i++){
                 v = parseFloat($scope.count[i]);
                 if(!isNaN(v)){
                     numbers.push(v);
+                    h = decimalPlaces(v);
+                    if(h > max_dec){
+                        max_dec = h;
+                    }
                 }
             }
-            console.log('a');
+            for(i = 0;i < numbers.length;i++){
+                numbers[i] = parseInt(numbers[i] * Math.pow(10, max_dec))
+            }
             var d = new Delta(numbers);
             d.useGeo = false;
             var f = d.formula();
-            $scope.answer = f.printLatex();
-			
-            console.log('b');
+            $scope.answer = print(max_dec, f);
+
             d = new Delta(numbers);
             d.useGeo = true;
             f = d.formula();
-            $scope.answer2 = f.printLatex();
+            $scope.answer2 = print(max_dec, f);
 
             if($scope.answer == $scope.answer2){
                 $scope.answer2 = '';
             }
-            console.log('c');
 
             setTimeout(function () {
                 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }, 500);
         };
+
         $scope.refresh = function () {
             setTimeout(function () {
                 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
